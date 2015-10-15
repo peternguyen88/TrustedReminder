@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="newTaskVM"
+            type="vn.com.peter.trustedreminder.viewmodels.NewTaskViewModel" />
+
+        <variable
+            name="newTaskHandler"
+            type="vn.com.peter.trustedreminder.handlers.NewTaskHandler" />
+
+        <import type="android.view.View" />
+    </data>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <include layout="@layout/base_toolbar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/editTextParentLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:background="?attr/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.rey.material.widget.EditText
+                    android:id="@+id/new_task_reminder_title"
+                    style="@style/Material.Widget.EditText.Light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:hint="Title"
+                    android:inputType="textCapSentences"
+                    android:paddingRight="16dp"
+                    android:text="Return Book To Library"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="#BFFFFFFF"
+                    android:textSize="20sp"
+                    app:et_dividerHeight="1dp"
+                    app:et_inputId="@+id/edit_text_et_label_input"
+                    app:et_labelTextColor="@android:color/white"
+                    app:et_labelTextSize="14sp"
+                    app:et_supportMode="helper" />
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:scaleType="center"
+                    app:layout_anchor="@id/new_task_reminder_title"
+                    app:layout_anchorGravity="center|right|end"
+                    app:materialIcon="microphone"
+                    app:materialIconColor="#FFFFFF"
+                    app:materialIconSize="30dp" />
+
+            </android.support.design.widget.CoordinatorLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp">
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="8dp"
+                    app:materialIcon="alarm"
+                    app:materialIconColor="@color/secondary_text"
+                    app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Remind Me"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/text_size_large" />
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:checked="@{newTaskVM.reminderEnable}"
+                        android:onCheckedChangeListener="@{newTaskHandler.reminderEnableListener}" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp"
+                android:visibility="@{newTaskVM.reminderEnable ? View.VISIBLE : View.GONE}">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <net.steamcrafted.materialiconlib.MaterialIconView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginRight="8dp"
+                            android:onClick="@{newTaskHandler.onClickChooseDate}"
+                            android:scaleType="center"
+                            app:materialIcon="calendar"
+                            app:materialIconColor="?colorAccent"
+                            app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:background="?attr/selectableItemBackground"
+                            android:onClick="@{newTaskHandler.onClickChooseDate}"
+                            android:text="30/09/2015"
+                            android:textColor="?colorAccent"
+                            android:textSize="@dimen/text_size_common" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <net.steamcrafted.materialiconlib.MaterialIconView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginRight="8dp"
+                            android:onClick="@{newTaskHandler.onClickChooseTime}"
+                            android:scaleType="center"
+                            app:materialIcon="clock"
+                            app:materialIconColor="?colorAccent"
+                            app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:background="?attr/selectableItemBackground"
+                            android:onClick="@{newTaskHandler.onClickChooseDate}"
+                            android:text="10:00 PM"
+                            android:textColor="?colorAccent"
+                            android:textSize="@dimen/text_size_common" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <net.steamcrafted.materialiconlib.MaterialIconView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginRight="8dp"
+                            android:scaleType="center"
+                            app:materialIcon="repeat_off"
+                            app:materialIconColor="?colorAccent"
+                            app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="Repeat"
+                            android:textColor="?colorAccent"
+                            android:textSize="@dimen/text_size_common" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical|right"
+                            android:text="None"
+                            android:textColor="?colorAccent"
+                            android:textSize="@dimen/text_size_common" />
+
+                        <net.steamcrafted.materialiconlib.MaterialIconView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:materialIcon="menu_down"
+                            app:materialIconColor="?colorAccent"
+                            app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/AppTheme.DeepLine" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingStart="@dimen/activity_horizontal_margin">
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:id="@+id/thumbnail_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    app:materialIcon="clock"
+                    app:materialIconColor="?colorAccent"
+                    app:materialIconSize="@dimen/material_icon_size_normal" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/thumbnail_image"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CATEGORY"
+                        android:textColor="@color/secondary_text"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Default Category" />
+                </LinearLayout>
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    app:materialIcon="chevron_right"
+                    app:materialIconColor="?colorAccent"
+                    app:materialIconSize="@dimen/material_icon_size_normal"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <View style="@style/AppTheme.DeepLine" />
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/save_todo_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_send_white_18dp"
+            app:fabSize="normal"
+            app:layout_anchor="@id/main_coordinator_layout"
+            app:layout_anchorGravity="bottom|right" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
